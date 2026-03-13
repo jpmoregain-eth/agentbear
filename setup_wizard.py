@@ -259,13 +259,16 @@ def build_config(data: dict) -> dict:
     # Get selected capabilities
     selected_caps = data.get('capabilities', [])
     
-    # Get provider - handle both 'provider' (singular) and 'providers' (list)
+    # Get provider - handle both 'provider' (singular) and 'providers' (list or string)
     providers = data.get('providers', [])
     logger.info(f"BUILD_CONFIG DEBUG - providers type: {type(providers)}")
     
     if isinstance(providers, list) and len(providers) > 0:
-        provider = providers[0]  # Use first selected provider
-        logger.info(f"BUILD_CONFIG DEBUG - Using providers[0]: {provider}")
+        provider = providers[0]
+        logger.info(f"BUILD_CONFIG DEBUG - Using providers[0] (list): {provider}")
+    elif isinstance(providers, str) and providers:
+        provider = providers
+        logger.info(f"BUILD_CONFIG DEBUG - Using providers (str): {provider}")
     else:
         provider = data.get('provider', 'anthropic')
         logger.info(f"BUILD_CONFIG DEBUG - Using fallback provider: {provider}")
