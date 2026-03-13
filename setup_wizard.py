@@ -278,22 +278,25 @@ def build_config(data: dict) -> dict:
     api_key = data.get(api_key_field, '') or data.get('api_key', '')
     logger.info(f"BUILD_CONFIG DEBUG - Looking for {api_key_field}: {'FOUND' if api_key else 'NOT FOUND'}")
     
+    # Build config structure in correct format for agent runtime
     config = {
         'agent': {
             'name': data.get('agent_name', 'my-agent'),
             'owner': data.get('owner_name', 'anonymous'),
             'language': data.get('language', 'en'),
-            'persona': data.get('persona', 'professional'),
+            'personas': [data.get('persona', 'professional')],
             'custom_prompt': data.get('custom_prompt', ''),
             'version': '1.0.0'
         },
-        'model': {
-            'provider': provider,
-            'name': data.get('primary_model', data.get('model_name', 'claude-sonnet-4-6')),
-            'endpoint': AI_PROVIDERS.get(provider, {}).get('endpoint', ''),
-            'api_key': encrypt_value(api_key),
-            'max_tokens': 4000,
-            'temperature': 0.3
+        'models': {
+            'primary': data.get('primary_model', data.get('model_name', 'claude-sonnet-4-6')),
+            'providers': {
+                provider: {
+                    'api_key': encrypt_value(api_key),
+                    'endpoint': AI_PROVIDERS.get(provider, {}).get('endpoint', ''),
+                    'models': AI_PROVIDERS.get(provider, {}).get('models', [])
+                }
+            }
         },
         'capabilities': {},
         'memory': {
