@@ -4,3 +4,5 @@ __pycache__/
 *.yaml
 !agent_config.example.yaml
 !config/*.yaml
+venv/
+.env
