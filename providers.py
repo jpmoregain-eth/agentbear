@@ -218,6 +218,65 @@ class DeepSeekProvider(BaseProvider):
         return model_id
 
 
+class OllamaProvider(BaseProvider):
+    """Local Ollama provider"""
+    
+    def __init__(self, api_key: str = None, base_url: str = "http://localhost:11434", **kwargs):
+        super().__init__(api_key or "ollama", **kwargs)
+        self.base_url = base_url
+        try:
+            import openai
+            self.client = openai.OpenAI(
+                api_key="ollama",
+                base_url=f"{base_url}/v1"
+            )
+        except ImportError:
+            raise ImportError("openai package required. Run: pip install openai")
+    
+    def chat(self, messages: List[Dict], model: str = None, max_tokens: int = 4000, temperature: float = 0.3) -> str:
+        """Send message to local Ollama model"""
+        response = self.client.chat.completions.create(
+            model=model or "qwen2.5",
+            messages=messages,
+            max_tokens=max_tokens,
+            temperature=temperature
+        )
+        return response.choices[0].message.content
+    
+    def get_model_name(self, model_id: str) -> str:
+        return model_id
+
+
+class MockProvider(BaseProvider):
+    """Mock provider for testing - returns canned responses"""
+    
+    def __init__(self, api_key: str = "test", **kwargs):
+        super().__init__(api_key, **kwargs)
+        self.response_count = 0
+    
+    def chat(self, messages: List[Dict], model: str = None, max_tokens: int = 4000, temperature: float = 0.3) -> str:
+        """Return mock response"""
+        self.response_count += 1
+        
+        # Get the last user message
+        last_message = ""
+        for msg in reversed(messages):
+            if msg.get('role') == 'user':
+                last_message = msg.get('content', '')
+                break
+        
+        # Generate contextual mock response
+        if "hello" in last_message.lower() or "hi" in last_message.lower():
+            return f"🐻 Hello! I'm your test agent (response #{self.response_count}). I received your greeting!"
+        elif "?" in last_message:
+            return f"🐻 That's an interesting question (response #{self.response_count})! In test mode, I don't have real AI, but the system is working correctly."
+        else:
+            return f"🐻 I received your message: '{last_message[:50]}...' (response #{self.response_count}). This is a test response - everything is working!"
+    
+    def get_model_name(self, model_id: str) -> str:
+        return model_id or "mock-model"
+
+
 class ProviderFactory:
     """Factory for creating provider instances"""
     
@@ -230,6 +289,9 @@ class ProviderFactory:
         'alibaba': DeepSeekProvider,  # Uses OpenAI-compatible API
         'moonshot': DeepSeekProvider,  # Uses OpenAI-compatible API
         'baidu': DeepSeekProvider,  # Uses OpenAI-compatible API
+        'ollama': OllamaProvider,
+        'custom': OllamaProvider,
+        'mock': MockProvider,  # For testing
     }
     
     @classmethod
