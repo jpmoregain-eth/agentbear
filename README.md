@@ -21,7 +21,7 @@ Agent Bear Corps lets you create your own AI agent that:
 
 ```bash
 git clone https://github.com/jpmoregain-eth/agentbearcorps.git
-cd Agent Bear Corps
+cd agentbearcorps
 ```
 
 ### Step 2: Install
@@ -201,7 +201,7 @@ pip install --user -r requirements.txt
 ### "Module not found"
 Make sure you're in the `Agent Bear Corps` directory:
 ```bash
-cd Agent Bear Corps
+cd agentbearcorps
 python setup.py
 ```
 
