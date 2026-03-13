@@ -251,18 +251,29 @@ def load_progress() -> dict:
 
 def build_config(data: dict) -> dict:
     """Build agent configuration from wizard data"""
+    # DEBUG
+    logger.info(f"BUILD_CONFIG DEBUG - data keys: {list(data.keys())}")
+    logger.info(f"BUILD_CONFIG DEBUG - providers raw: {data.get('providers')}")
+    logger.info(f"BUILD_CONFIG DEBUG - provider raw: {data.get('provider')}")
+    
     # Get selected capabilities
     selected_caps = data.get('capabilities', [])
     
     # Get provider - handle both 'provider' (singular) and 'providers' (list)
     providers = data.get('providers', [])
+    logger.info(f"BUILD_CONFIG DEBUG - providers type: {type(providers)}")
+    
     if isinstance(providers, list) and len(providers) > 0:
         provider = providers[0]  # Use first selected provider
+        logger.info(f"BUILD_CONFIG DEBUG - Using providers[0]: {provider}")
     else:
         provider = data.get('provider', 'anthropic')
+        logger.info(f"BUILD_CONFIG DEBUG - Using fallback provider: {provider}")
     
     # Get API key - try provider-specific first, then generic
-    api_key = data.get(f'api_key_{provider}', '') or data.get('api_key', '')
+    api_key_field = f'api_key_{provider}'
+    api_key = data.get(api_key_field, '') or data.get('api_key', '')
+    logger.info(f"BUILD_CONFIG DEBUG - Looking for {api_key_field}: {'FOUND' if api_key else 'NOT FOUND'}")
     
     config = {
         'agent': {
