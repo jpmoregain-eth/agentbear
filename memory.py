@@ -76,6 +76,9 @@ class AgentMemory:
         
         conn.commit()
         conn.close()
+        
+        # Auto-trim old messages for this session (keep last 100)
+        self._trim_session_messages(session_id, keep_last=100)
     
     def get_conversation_history(self, session_id: str, limit: int = 50) -> List[Dict]:
         """Get conversation history for a session"""
@@ -205,3 +208,44 @@ class AgentMemory:
         
         conn.commit()
         conn.close()
+    
+    def _trim_session_messages(self, session_id: str, keep_last: int = 100):
+        """Auto-trim old messages for a session, keeping only the most recent N"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        # Delete all but the most recent N messages for this session
+        cursor.execute('''
+            DELETE FROM conversations
+            WHERE session_id = ?
+            AND id NOT IN (
+                SELECT id FROM conversations
+                WHERE session_id = ?
+                ORDER BY timestamp DESC
+                LIMIT ?
+            )
+        ''', (session_id, session_id, keep_last))
+        
+        deleted = cursor.rowcount
+        conn.commit()
+        conn.close()
+        
+        if deleted > 0:
+            logging.getLogger(__name__).debug(f"Trimmed {deleted} old messages from session {session_id}")
+    
+    def cleanup_old_sessions(self, days: int = 30):
+        """Remove sessions older than N days"""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute('''
+            DELETE FROM conversations
+            WHERE timestamp < datetime('now', '-' || ? || ' days')
+        ''', (days,))
+        
+        deleted = cursor.rowcount
+        conn.commit()
+        conn.close()
+        
+        if deleted > 0:
+            logging.getLogger(__name__).info(f"Cleaned up {deleted} messages older than {days} days")
