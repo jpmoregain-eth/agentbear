@@ -51,13 +51,6 @@ web:
       key_name: brave_api_key
       key_description: Brave Search API Key
       
-    - id: web_search_serper
-      name: Web Search (Serper)
-      description: Google Search via Serper API
-      requires_api_key: true
-      key_name: serper_api_key
-      key_description: Serper.dev API Key
-      
     - id: web_fetch
       name: Web Fetch
       description: Retrieve and parse web page content
