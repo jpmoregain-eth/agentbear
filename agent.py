@@ -85,6 +85,28 @@ class ABCAIAgent:
             self.code_tools = CodeTools(self._chat_with_llm)
             logger.info("📝 Code tools initialized")
         
+        # Initialize GitHub tools if capability enabled
+        self.github_tools = None
+        if 'github_integration' in self.config.capabilities:
+            from github_tools import GitHubTools
+            from crypto_utils import decrypt_value
+            
+            github_config = self.config.capabilities.get('github_integration', {})
+            encrypted_token = github_config.get('api_key', '')
+            
+            if encrypted_token:
+                token = decrypt_value(encrypted_token)
+                if token and token != encrypted_token:
+                    try:
+                        self.github_tools = GitHubTools(token)
+                        logger.info("🔗 GitHub integration initialized")
+                    except Exception as e:
+                        logger.error(f"Failed to initialize GitHub tools: {e}")
+                else:
+                    logger.error("Failed to decrypt GitHub token")
+            else:
+                logger.warning("GitHub token not found in config")
+        
         # Start Telegram bot if capability enabled
         self.telegram_app = None
         if TELEGRAM_AVAILABLE and 'telegram_bot' in self.config.capabilities:
@@ -376,6 +398,34 @@ Always be helpful, accurate, and responsive.
                     'response': response,
                     'session_id': session_id,
                     'tool_result': code_result
+                }
+        
+        # Check for GitHub commands (if GitHub tools enabled)
+        if self.github_tools:
+            github_result = self.github_tools.detect_and_execute(message)
+            if github_result:
+                # Format GitHub result as response
+                if github_result.get('success'):
+                    if 'content' in github_result:  # File content
+                        content_preview = github_result['content'][:500] + "..." if len(github_result['content']) > 500 else github_result['content']
+                        response = f"📄 **{github_result.get('path')}** from [{github_result.get('repo', 'repo')}]({github_result.get('url')}):\n```\n{content_preview}\n```"
+                    elif 'issues' in github_result:
+                        issues_text = '\n'.join([f"#{i['number']}: {i['title']} ({i['state']})" for i in github_result['issues'][:5]])
+                        response = f"🐛 **Issues in {github_result.get('repo')}** ({github_result.get('count')} total):\n\n{issues_text}"
+                    elif 'items' in github_result:  # Directory listing
+                        items_text = '\n'.join([f"{'📁' if i['type'] == 'dir' else '📄'} {i['name']}" for i in github_result['items']])
+                        response = f"📁 **{github_result.get('repo')}:{github_result.get('path') or '/'}**\n\n{items_text}"
+                    elif 'full_name' in github_result:  # Repo info
+                        response = f"📊 **{github_result.get('full_name')}**\n⭐ {github_result.get('stars')} stars | 🍴 {github_result.get('forks')} forks | 🐛 {github_result.get('open_issues')} open issues\n\n{github_result.get('description', 'No description')}"
+                    else:
+                        response = f"✅ GitHub operation successful: {github_result}"
+                else:
+                    response = f"❌ GitHub Error: {github_result.get('error', 'Unknown error')}"
+                
+                return {
+                    'response': response,
+                    'session_id': session_id,
+                    'tool_result': github_result
                 }
         
         # Check for file commands (if file tools enabled)
