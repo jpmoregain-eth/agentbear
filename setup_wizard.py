@@ -319,6 +319,11 @@ def build_config(data: dict) -> dict:
     for cap_id in selected_caps:
         config['capabilities'][cap_id] = {'enabled': True}
         
+        # Special handling for crypto_trading - add exchange selection
+        if cap_id == 'crypto_trading':
+            exchange = data.get('crypto_exchange', 'binance')
+            config['capabilities'][cap_id]['exchange'] = exchange
+        
         # Add API keys for capabilities that need them
         for category in CAPABILITIES.values():
             for item in category['items']:
@@ -330,6 +335,13 @@ def build_config(data: dict) -> dict:
                         logger.info(f"BUILD_CONFIG DEBUG - Added {key_name} for {cap_id}")
                     elif key_name:
                         logger.info(f"BUILD_CONFIG DEBUG - {key_name} NOT found in data")
+                
+                # Add secrets for capabilities that need them
+                if item['id'] == cap_id and item.get('requires_secret'):
+                    secret_name = item.get('secret_name')
+                    if secret_name and secret_name in data:
+                        config['capabilities'][cap_id]['api_secret'] = encrypt_value(data[secret_name])
+                        logger.info(f"BUILD_CONFIG DEBUG - Added {secret_name} for {cap_id}")
     
     return config
 

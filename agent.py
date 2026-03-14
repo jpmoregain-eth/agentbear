@@ -107,6 +107,42 @@ class ABCAIAgent:
             else:
                 logger.warning("GitHub token not found in config")
         
+        # Initialize Crypto tools if capability enabled
+        self.crypto_tools = None
+        if 'crypto_trading' in self.config.capabilities:
+            from crypto_tools import CryptoTools
+            from crypto_utils import decrypt_value
+            
+            crypto_config = self.config.capabilities.get('crypto_trading', {})
+            exchange_id = crypto_config.get('exchange', 'binance')
+            encrypted_key = crypto_config.get('api_key', '')
+            encrypted_secret = crypto_config.get('api_secret', '')
+            
+            # Decrypt if provided, otherwise use empty strings (public data only)
+            api_key = decrypt_value(encrypted_key) if encrypted_key else ''
+            api_secret = decrypt_value(encrypted_secret) if encrypted_secret else ''
+            
+            try:
+                self.crypto_tools = CryptoTools(
+                    exchange_id=exchange_id,
+                    api_key=api_key,
+                    api_secret=api_secret
+                )
+                logger.info(f"💰 Crypto tools initialized for {exchange_id}")
+            except Exception as e:
+                logger.error(f"Failed to initialize crypto tools: {e}")
+        
+        # Initialize Web Search tools if capability enabled
+        self.web_search_tools = None
+        if 'web_search' in self.config.capabilities:
+            from web_search_tools import WebSearchTools
+            
+            try:
+                self.web_search_tools = WebSearchTools()
+                logger.info("🔍 Web search tools initialized")
+            except Exception as e:
+                logger.error(f"Failed to initialize web search tools: {e}")
+        
         # Start Telegram bot if capability enabled
         self.telegram_app = None
         if TELEGRAM_AVAILABLE and 'telegram_bot' in self.config.capabilities:
@@ -426,6 +462,66 @@ Always be helpful, accurate, and responsive.
                     'response': response,
                     'session_id': session_id,
                     'tool_result': github_result
+                }
+        
+        # Check for Crypto commands (if crypto tools enabled)
+        if self.crypto_tools:
+            crypto_result = self.crypto_tools.detect_and_execute(message)
+            if crypto_result:
+                # Format crypto result as response
+                if crypto_result.get('success'):
+                    if 'price' in crypto_result:  # Ticker
+                        response = f"💰 **{crypto_result.get('symbol')}** on {crypto_result.get('exchange')}\n"
+                        response += f"Price: ${crypto_result.get('price'):,.2f}\n"
+                        response += f"24h Change: {crypto_result.get('change_percent_24h', 0):+.2f}%\n"
+                        response += f"24h High: ${crypto_result.get('high_24h', 0):,.2f} | Low: ${crypto_result.get('low_24h', 0):,.2f}\n"
+                        response += f"Volume: {crypto_result.get('volume_24h', 0):,.2f}"
+                    elif 'candles' in crypto_result:  # OHLCV
+                        response = f"📊 **{crypto_result.get('symbol')}** {crypto_result.get('timeframe')} candles ({crypto_result.get('count')}):\n```\n"
+                        for c in crypto_result['candles'][-5:]:  # Show last 5
+                            response += f"O: {c['open']:,.2f} H: {c['high']:,.2f} L: {c['low']:,.2f} C: {c['close']:,.2f}\n"
+                        response += "```"
+                    elif 'balances' in crypto_result:  # Balance
+                        balance_text = '\n'.join([f"{k}: {v}" for k, v in list(crypto_result['balances'].items())[:10]])
+                        response = f"💼 **Balance on {crypto_result.get('exchange')}** ({crypto_result.get('total_currencies')} currencies):\n```\n{balance_text}\n```"
+                    elif 'symbols' in crypto_result:  # Symbols list
+                        symbols_text = ', '.join(crypto_result['symbols'][:20])
+                        response = f"📈 **{crypto_result.get('total')} pairs available** with {crypto_result.get('quote_currency')}\n{symbols_text}..."
+                    else:
+                        response = f"✅ Crypto operation successful"
+                else:
+                    response = f"❌ Crypto Error: {crypto_result.get('error', 'Unknown error')}"
+                
+                return {
+                    'response': response,
+                    'session_id': session_id,
+                    'tool_result': crypto_result
+                }
+        
+        # Check for Web Search commands (if web search tools enabled)
+        if self.web_search_tools:
+            web_result = self.web_search_tools.detect_and_execute(message)
+            if web_result:
+                # Format web result as response
+                if web_result.get('success'):
+                    if 'results' in web_result:  # Search results
+                        results_text = '\n\n'.join([
+                            f"**{i+1}. {r['title']}**\n{r['snippet'][:150]}...\n🔗 {r['url']}"
+                            for i, r in enumerate(web_result['results'])
+                        ])
+                        response = f"🔍 **Web Search: '{web_result.get('query')}'** ({web_result.get('count')} results):\n\n{results_text}"
+                    elif 'content' in web_result:  # Page fetch
+                        content_preview = web_result['content'][:800] + "..." if len(web_result['content']) > 800 else web_result['content']
+                        response = f"📄 **Fetched: {web_result.get('url')}**\n\n{content_preview}"
+                    else:
+                        response = f"✅ Web operation successful"
+                else:
+                    response = f"❌ Web Error: {web_result.get('error', 'Unknown error')}"
+                
+                return {
+                    'response': response,
+                    'session_id': session_id,
+                    'tool_result': web_result
                 }
         
         # Check for file commands (if file tools enabled)

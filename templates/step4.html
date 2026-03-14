@@ -83,6 +83,25 @@
         
         // Add fields for selected capabilities that need API keys
         selected.forEach(capId => {
+            // Special handling for crypto_trading - add exchange selector
+            if (capId === 'crypto_trading') {
+                const exchangeHtml = `
+                    <div class="form-group" style="background: var(--bg-dark); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                        <label for="crypto_exchange">Select Exchange</label>
+                        <select id="crypto_exchange" name="crypto_exchange" class="form-control" style="width: 100%; padding: 0.5rem; background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border); border-radius: 0.25rem;">
+                            <option value="binance">Binance (Default)</option>
+                            <option value="coinbase">Coinbase</option>
+                            <option value="kraken">Kraken</option>
+                            <option value="kucoin">KuCoin</option>
+                            <option value="bybit">Bybit</option>
+                            <option value="okx">OKX</option>
+                        </select>
+                        <p class="help-text">Select your preferred crypto exchange</p>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', exchangeHtml);
+            }
+            
             if (capabilitiesWithKeys[capId]) {
                 const keyInfo = capabilitiesWithKeys[capId];
                 const existingValue = '';

@@ -44,6 +44,11 @@ web:
   name: Web & Search
   description: Tools for searching and retrieving web content
   items:
+    - id: web_search
+      name: Web Search (Google)
+      description: Search the web using headless browser (no API key needed)
+      requires_api_key: false
+      
     - id: web_fetch
       name: Web Fetch
       description: Retrieve and parse web page content
@@ -94,4 +99,14 @@ dev_tools:
       requires_api_key: true
       key_name: github_token
       key_description: GitHub Personal Access Token
+      
+    - id: crypto_trading
+      name: Crypto Trading (CCXT)
+      description: Get crypto prices, charts, balances via CCXT (Binance, Coinbase, etc.)
+      requires_api_key: true
+      key_name: exchange_api_key
+      key_description: Exchange API Key (optional - leave blank for public data only)
+      requires_secret: true
+      secret_name: exchange_api_secret
+      secret_description: Exchange API Secret (optional)
       secret_description: Binance API Secret
