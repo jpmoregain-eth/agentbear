@@ -409,7 +409,14 @@ Always be helpful, accurate, and responsive.
         
         # Handle "what can you do" / capabilities questions directly
         msg_lower = message.lower().strip()
-        if any(phrase in msg_lower for phrase in ['what can you do', 'what are your capabilities', 'what tools do you have', 'help me', 'list capabilities']):
+        capability_phrases = [
+            'what can you do', 'what can u do', 'wat can you do', 'wat can u do',
+            'what are your capabilities', 'what are your features',
+            'what tools do you have', 'what can you help with',
+            'help me', 'list capabilities', 'show capabilities',
+            'what do you do', 'what you can do'
+        ]
+        if any(phrase in msg_lower for phrase in capability_phrases):
             capabilities_list = []
             
             # Check which tools are actually initialized
