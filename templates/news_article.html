@@ -5,7 +5,7 @@
 {% block content %}
 <!-- Article Header -->
 <header class="article-header">
-    <span class="category-badge" style="background: {{ article.category_color or '#6366f1' }}20; color: {{ article.category_color or '#6366f1' }}; margin-bottom: 1rem;">
+    <span class="category-badge" style="background: {{ article.category_color or '#6366f1' }}20; color: {{ article.category_color or '#6366f1' }}; margin-bottom: 1.5rem;">
         {{ article.category | title }}
     </span>
     
@@ -17,9 +17,11 @@
     
     <div class="hero-meta" style="justify-content: center;">
         <span>{{ article.published_at[:10] }}</span>
+        <span>•</span>
         <span>{{ article.views }} views</span>
         {% if article.source_name %}
-        <span>Source: <a href="{{ article.source_url }}" target="_blank" rel="noopener">{{ article.source_name }}</a></span>
+        <span>•</span>
+        <span>Source: <a href="{{ article.source_url }}" target="_blank" rel="noopener" style="color: var(--text-muted);">{{ article.source_name }}</a></span>
         {% endif %}
     </div>
 </header>
@@ -27,30 +29,28 @@
 <!-- Article Content -->
 <article class="article-content">
     {{ article.content | safe }}
+    
+    {% if article.hot_take %}
+    <div class="hot-take">
+        <div class="hot-take-label">🔥 Our Hot Take</div>
+        <p>{{ article.hot_take }}</p>
+    </div>
+    {% endif %}
 </article>
 
-<!-- Hot Take Section -->
-{% if article.hot_take %}
-<div class="hot-take">
-    <span class="hot-take-label">🔥 Our Hot Take</span>
-    <p style="margin: 0; font-size: 1.125rem;">{{ article.hot_take }}</p>
-</div>
-{% endif %}
-
 <!-- Share Section -->
-<div style="max-width: 700px; margin: 3rem auto; padding: 2rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center;">
-    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Enjoyed this analysis? Share it with your network.</p>
+<div class="share-section">
+    <h3>Enjoyed this analysis?</h3>
+    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Share it with your network and help us grow.</p>
     
-    <div style="display: flex; gap: 1rem; justify-content: center;">
-        <a href="https://twitter.com/intent/tweet?text={{ article.title | urlencode }}&url=https://agentbear.news/article/{{ article.slug }}" 
-           target="_blank" rel="noopener"
-           style="padding: 0.5rem 1rem; background: #1da1f2; color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 500;">
+    <div class="share-buttons">
+        <a href="https://twitter.com/intent/tweet?text={{ article.title | urlencode }}%20via%20@AgentBearNews&url=https://agentbear.news/article/{{ article.slug }}" 
+           target="_blank" rel="noopener" class="share-btn share-twitter">
             Share on X
         </a>
         
         <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://agentbear.news/article/{{ article.slug }}" 
-           target="_blank" rel="noopener"
-           style="padding: 0.5rem 1rem; background: #0077b5; color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 500;">
+           target="_blank" rel="noopener" class="share-btn share-linkedin">
             Share on LinkedIn
         </a>
     </div>
@@ -58,17 +58,19 @@
 
 <!-- Related Articles -->
 {% if related %}
-<section style="max-width: 700px; margin: 3rem auto;">
-    <h3 style="margin-bottom: 1.5rem;">More Intelligence</h3>
+<section style="max-width: 800px; margin: 4rem auto;">
+    <div class="section-header">
+        <h3 class="section-title" style="font-size: 1.3rem;">More Intelligence</h3>
+    </div>
     
     <div style="display: grid; gap: 1rem;">
         {% for r in related %}
         <a href="/article/{{ r.slug }}" style="text-decoration: none;">
-            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1rem; transition: all 0.3s;"
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.25rem; transition: all 0.3s;"
                  onmouseover="this.style.borderColor='var(--primary)'"
                  onmouseout="this.style.borderColor='var(--border)'">
-                <span style="font-size: 0.75rem; color: var(--text-muted);">{{ r.category | title }}</span>
-                <h4 style="margin: 0.25rem 0 0 0; font-size: 1rem;">{{ r.title }}</h4>
+                <span class="category-badge" style="background: {{ r.category_color or '#6366f1' }}20; color: {{ r.category_color or '#6366f1' }}; font-size: 0.65rem; padding: 0.25rem 0.6rem; margin-bottom: 0.5rem; display: inline-block;">{{ r.category | title }}</span>
+                <h4 style="margin: 0.5rem 0 0 0; font-size: 1.1rem; color: var(--text-primary);">{{ r.title }}</h4>
             </div>
         </a>
         {% endfor %}
@@ -77,13 +79,13 @@
 {% endif %}
 
 <!-- Navigation -->
-<div style="max-width: 700px; margin: 3rem auto; display: flex; justify-content: space-between;">
-    <a href="/" style="color: var(--text-secondary); text-decoration: none;">
-        ← Back to Home
+<div style="max-width: 800px; margin: 4rem auto; display: flex; justify-content: space-between; padding-top: 2rem; border-top: 1px solid var(--border);">
+    <a href="/" style="color: var(--text-secondary); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
+        <span>←</span> Back to Home
     </a>
     
-    <a href="/archive" style="color: var(--text-secondary); text-decoration: none;">
-        View Archive →
+    <a href="/archive" style="color: var(--text-secondary); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
+        View Archive <span>→</span>
     </a>
 </div>
 {% endblock %}
