@@ -1,0 +1,42 @@
+{% extends "news_base.html" %}
+
+{% block title %}{{ category.name }} | {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h2 class="section-title" style="color: {{ category.color }};">🏢 {{ category.name }} Bureau</h2>
+</div>
+
+<p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">
+    {{ category.description }}
+</p>
+
+{% if articles %}
+<div class="article-grid">
+    {% for article in articles %}
+    <article class="article-card" onclick="window.location.href='/article/{{ article.slug }}'">
+        <span class="category-badge" style="background: {{ category.color }}20; color: {{ category.color }};">
+            {{ article.category | title }}
+        </span>
+        
+        <h3 class="article-card-title">{{ article.title }}</h3>
+        
+        <p class="article-card-summary">{{ article.summary or article.content[:200] }}...</p>
+        
+        <div class="article-card-meta">
+            <span>{{ article.published_at[:10] }}</span>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div style="text-align: center; padding: 4rem; background: var(--bg-card); border-radius: 1rem;">
+    <p style="font-size: 4rem; margin-bottom: 1rem;">🐻</p>
+    <p style="color: var(--text-secondary);">No articles in this bureau yet. Our bears are still investigating! 🕵️</p>
+</div>
+{% endif %}
+
+<div style="text-align: center; margin-top: 2rem;">
+    <a href="/" style="color: var(--text-secondary);">← Back to Home</a>
+</div>
+{% endblock %}

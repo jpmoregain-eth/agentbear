@@ -1,0 +1,60 @@
+{% extends "news_base.html" %}
+
+{% block title %}Join the Corps | {{ site_name }}{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 0 auto; text-align: center; padding: 3rem 1rem;">
+    <div style="font-size: 5rem; margin-bottom: 1rem;">🐻📰</div>
+    
+    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Join the AgentBear Corps</h1>
+    
+    <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">
+        Get our daily dispatch from the AI wilderness. One curated story with honey-sweet analysis.
+    </p>
+    
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem;">
+        <form onsubmit="event.preventDefault(); alert('Coming soon! Our bears are still setting up the email system. 🐻');">
+            <input 
+                type="email" 
+                placeholder="your@email.com" 
+                style="width: 100%; padding: 1rem; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary); font-size: 1rem; margin-bottom: 1rem;"
+                required
+            >
+            
+            <button 
+                type="submit"
+                style="width: 100%; padding: 1rem; background: var(--gradient-bear); color: white; border: none; border-radius: 0.5rem; font-weight: 700; font-size: 1rem; cursor: pointer;"
+            >
+                🍯 Join the Corps
+            </button>
+        </form>
+        
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">No spam. Just honey. Unsubscribe anytime.</p>
+    </div>
+    
+    <div style="margin-top: 3rem;">
+        <h3 style="color: var(--bear-gold); margin-bottom: 1rem;">What You Get</h3>
+        
+        <div style="display: grid; gap: 1rem; text-align: left;">
+            <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-card); border-radius: 0.5rem;">
+                <span style="font-size: 1.5rem;">📰</span>
+                <span style="color: var(--text-secondary);">One curated AI story per day</span>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-card); border-radius: 0.5rem;">
+                <span style="font-size: 1.5rem;">🔥</span>
+                <span style="color: var(--text-secondary);">Honey-sweet hot takes</span>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg-card); border-radius: 0.5rem;">
+                <span style="font-size: 1.5rem;">🚀</span>
+                <span style="color: var(--text-secondary);">Signal, not noise</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+    <a href="/" style="color: var(--text-secondary);">← Back to Home</a>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "news_base.html" %}
+
+{% block title %}Our Den | {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h2 class="section-title">🐻 Our Den</h2>
+</div>
+
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 1.5rem; padding: 3rem; margin-bottom: 2rem;">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <div style="font-size: 5rem; margin-bottom: 1rem;">🐻📰</div>
+        <h1 style="font-size: 2.5rem; margin-bottom: 1rem; background: var(--gradient-bear); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AgentBear Corps</h1>
+        
+        <p style="font-size: 1.25rem; color: var(--text-secondary);">A beary cute agency of journalists reporting on AI developments</p>
+    </div>
+    
+    <hr style="border: none; border-top: 1px solid var(--border); margin: 2rem 0;">
+    
+    <h3 style="color: var(--bear-gold); margin-bottom: 1rem;">🍯 Our Mission</h3>
+    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+        We scour the AI wilderness daily to bring you <strong style="color: var(--text-primary);">signal, not noise</strong>. 
+        One curated story per day, with honey-sweet analysis from 20 years in the tech trenches.
+    </p>
+    
+    <h3 style="color: var(--bear-gold); margin-bottom: 1rem;">🔥 Our Hot Takes</h3>
+    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">
+        We don't just report the news — we give you honest, unfiltered analysis. 
+        If something's overhyped, we'll tell you. If something's underrated, we'll highlight it.
+    </p>
+    
+    <h3 style="color: var(--bear-gold); margin-bottom: 1rem;">🌲 Wilderness Tested</h3>
+    <p style="color: var(--text-secondary); line-height: 1.8;">
+        20 years in storage infrastructure means we know what's real and what's marketing fluff. 
+        We understand the technical details that other outlets miss.
+    </p>
+</div>
+
+<div style="text-align: center; padding: 2rem;">
+    <p style="font-size: 3rem; margin-bottom: 1rem;">🐻 🐻 🐻 🐻 🐻</p>
+    <p style="color: var(--text-muted); font-style: italic;">"Reporting from the AI wilderness since 2026" 🍯</p>
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+    <a href="/" style="color: var(--text-secondary);">← Back to Home</a>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "news_base.html" %}
+
+{% block title %}Archives | {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h2 class="section-title">📚 Full Archives</h2>
+</div>
+
+<div class="article-grid">
+    {% for article in articles %}
+    <article class="article-card" onclick="window.location.href='/article/{{ article.slug }}'">
+        <span class="category-badge" style="background: {{ article.category_color or '#6366f1' }}20; color: {{ article.category_color or '#6366f1' }};">
+            {{ article.category | title }}
+        </span>
+        
+        <h3 class="article-card-title">{{ article.title }}</h3>
+        <p class="article-card-summary">{{ article.summary or article.content[:200] }}...</p>
+        
+        <div class="article-card-meta">
+            <span>{{ article.published_at[:10] }}</span>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+
+{% if articles %}
+<div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+    {% if page > 1 %}
+    <a href="/archive?page={{ page - 1 }}" style="padding: 0.75rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary);">← Previous</a>
+    {% endif %}
+    
+    <span style="padding: 0.75rem 1.5rem; color: var(--text-muted);">Page {{ page }}</span>
+    
+    {% if articles|length == 10 %}
+    <a href="/archive?page={{ page + 1 }}" style="padding: 0.75rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary);">Next →</a>
+    {% endif %}
+</div>
+{% endif %}
+
+<div style="text-align: center; margin-top: 2rem;">
+    <a href="/" style="color: var(--text-secondary);">← Back to Home</a>
+</div>
+{% endblock %}
