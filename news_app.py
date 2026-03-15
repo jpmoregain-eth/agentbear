@@ -114,10 +114,6 @@ def archive():
 def about():
     return render_template('news_about.html')
 
-@app.route('/subscribe')
-def subscribe():
-    return render_template('news_subscribe.html')
-
 @app.route('/api/articles')
 def api_articles():
     category = request.args.get('category')
