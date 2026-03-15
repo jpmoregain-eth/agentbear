@@ -112,7 +112,10 @@ def category(slug):
 @app.route('/archive')
 def archive():
     page = request.args.get('page', 1, type=int)
-    articles = get_articles(limit=10, offset=(page-1)*10)
+    per_page = 10
+    # Skip first 8 articles (shown on homepage: 4 in Honeypot + 4 in Latest)
+    offset = 8 + ((page-1) * per_page)
+    articles = get_articles(limit=per_page, offset=offset)
     return render_template('news_archive.html', articles=articles, page=page)
 
 @app.route('/about')

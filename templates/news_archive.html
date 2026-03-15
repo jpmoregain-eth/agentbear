@@ -24,6 +24,23 @@
     {% endfor %}
 </div>
 
+{% if not articles %}
+<div style="text-align: center; padding: 4rem; background: var(--bg-card); border-radius: 1rem; border: 1px solid var(--border);">
+    <p style="font-size: 4rem; margin-bottom: 1rem;">🐻📰</p>
+    
+    <h3 style="color: var(--bear-gold); margin-bottom: 1rem;">Archives Empty... For Now!</h3>
+    
+    <p style="color: var(--text-secondary); max-width: 400px; margin: 0 auto;">
+        Our first 8 articles are featured on the homepage. 
+        Check back soon as we publish more daily intelligence!
+    </p>
+    
+    <a href="/" style="display: inline-block; margin-top: 1.5rem; padding: 0.75rem 1.5rem; background: var(--gradient-bear); color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600;">
+        Back to Homepage
+    </a>
+</div>
+{% endif %}
+
 {% if articles %}
 <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
     {% if page > 1 %}
