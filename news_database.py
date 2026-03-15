@@ -14,8 +14,20 @@ class NewsDatabase:
     """Manages news articles and content"""
     
     def __init__(self, db_path=None):
-        self.db_path = db_path or str(DB_PATH)
-        self._init_db()
+        if db_path:
+            self.db_path = db_path
+        else:
+            # Default to same directory as script
+            self.db_path = str(Path(__file__).parent / "news.db")
+        
+        # Ensure directory exists
+        Path(self.db_path).parent.mkdir(parents=True, exist_ok=True)
+        
+        try:
+            self._init_db()
+        except Exception as e:
+            print(f"Database init error: {e}")
+            # Continue anyway - might be read-only environment
     
     def _init_db(self):
         """Initialize SQLite database"""

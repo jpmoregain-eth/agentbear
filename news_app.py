@@ -1,5 +1,5 @@
 """
-AgentBear News - Daily AI News Site
+AgentBear Corps - Daily AI News Site
 Flask application for serving news content
 """
 
@@ -12,8 +12,9 @@ from news_database import NewsDatabase
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'agentbear-news-dev-key')
 
-# Initialize database
-db = NewsDatabase()
+# Initialize database with proper path for Vercel
+db_path = os.environ.get('DATABASE_PATH', os.path.join(os.path.dirname(__file__), 'news.db'))
+db = NewsDatabase(db_path)
 
 @app.context_processor
 def inject_globals():
