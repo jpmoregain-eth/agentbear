@@ -84,16 +84,13 @@ def index():
     # Get all articles sorted by date (newest first)
     all_articles = get_articles(limit=20)
     
-    # Fresh from the Honeypot: 3 most recent
-    fresh = all_articles[:3]
+    # Fresh from the Honeypot: 4 most recent (for 2x2 grid on desktop)
+    fresh = all_articles[:4]
     
-    # Latest from the Field: next 4 most recent (4th, 5th, 6th, 7th)
-    latest = all_articles[3:7]
+    # Latest from the Field: next 4 most recent (5th, 6th, 7th, 8th)
+    latest = all_articles[4:8]
     
-    # Featured is just the first one for highlighting
-    featured = fresh[0] if fresh else None
-    
-    return render_template('news_index.html', featured=featured, fresh=fresh, latest=latest)
+    return render_template('news_index.html', fresh=fresh, latest=latest)
 
 @app.route('/article/<slug>')
 def article(slug):
