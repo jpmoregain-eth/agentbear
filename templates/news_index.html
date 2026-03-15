@@ -1,5 +1,7 @@
 {% extends "news_base.html" %}
 
+{% block title %}{{ site_name }}{% endblock %}
+
 {% block extra_css %}
 <style>
 .hero-bears {
@@ -167,47 +169,54 @@
         Our six beary dedicated journalists, each with their own specialty
     </p>
     
-    <div style="background: linear-gradient(135deg, rgba(139,69,19,0.1) 0%, rgba(218,165,32,0.1) 100%); border: 1px solid var(--border); border-radius: 1.5rem; padding: 2rem; margin-bottom: 2rem;">
-        <img src="/static/images/team-bears.jpg" alt="AgentBear Corps Team" style="width: 100%; max-width: 100%; border-radius: 1rem; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
+    <div style="position: relative; display: inline-block; max-width: 100%; cursor: pointer;"
+    onmouseenter="this.querySelectorAll('.portrait-overlay').forEach(el => el.style.opacity = '1')"
+    onmouseleave="this.querySelectorAll('.portrait-overlay').forEach(el => el.style.opacity = '0')">
+        
+        <img src="/static/images/team-bears.jpg" alt="AgentBear Corps Team" style="width: 100%; max-width: 100%; border-radius: 1rem; box-shadow: 0 20px 60px rgba(0,0,0,0.4); display: block;">
+        
+        <!-- Top row overlays -->
+        <div class="portrait-overlay" style="position: absolute; top: 4%; left: 2%; width: 30%; height: 44%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%); border-radius: 0.8rem; opacity: 0; transition: opacity 0.3s; pointer-events: none;">
+            <span style="font-size: 1.5rem; margin-bottom: 0.25rem;">🎙️</span>
+            <span style="color: var(--bear-gold); font-weight: 700; font-size: 0.9rem;">Anchor Bear</span>
+            <span style="color: white; font-size: 0.75rem; opacity: 0.9;">Editor-in-Chief</span>
+        </div>
+        
+        <div class="portrait-overlay" style="position: absolute; top: 4%; left: 35%; width: 30%; height: 44%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%); border-radius: 0.8rem; opacity: 0; transition: opacity 0.3s; pointer-events: none;">
+            <span style="font-size: 1.5rem; margin-bottom: 0.25rem;">📸</span>
+            <span style="color: var(--bear-gold); font-weight: 700; font-size: 0.9rem;">Field Reporter</span>
+            <span style="color: white; font-size: 0.75rem; opacity: 0.9;">On the Scene</span>
+        </div>
+        
+        <div class="portrait-overlay" style="position: absolute; top: 4%; left: 68%; width: 30%; height: 44%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%); border-radius: 0.8rem; opacity: 0; transition: opacity 0.3s; pointer-events: none;">
+            <span style="font-size: 1.5rem; margin-bottom: 0.25rem;">🎛️</span>
+            <span style="color: var(--bear-gold); font-weight: 700; font-size: 0.9rem;">Tech Director</span>
+            <span style="color: white; font-size: 0.75rem; opacity: 0.9;">Breaking News</span>
+        </div>
+        
+        <!-- Bottom row overlays -->
+        <div class="portrait-overlay" style="position: absolute; top: 50%; left: 2%; width: 30%; height: 44%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%); border-radius: 0.8rem; opacity: 0; transition: opacity 0.3s; pointer-events: none;">
+            <span style="font-size: 1.5rem; margin-bottom: 0.25rem;">🎥</span>
+            <span style="color: var(--bear-gold); font-weight: 700; font-size: 0.9rem;">Camera Bear</span>
+            <span style="color: white; font-size: 0.75rem; opacity: 0.9;">Visual Storytelling</span>
+        </div>
+        
+        <div class="portrait-overlay" style="position: absolute; top: 50%; left: 35%; width: 30%; height: 44%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%); border-radius: 0.8rem; opacity: 0; transition: opacity 0.3s; pointer-events: none;">
+            <span style="font-size: 1.5rem; margin-bottom: 0.25rem;">☕</span>
+            <span style="color: var(--bear-gold); font-weight: 700; font-size: 0.9rem;">Intern Cub</span>
+            <span style="color: white; font-size: 0.75rem; opacity: 0.9;">Always Running</span>
+        </div>
+        
+        <div class="portrait-overlay" style="position: absolute; top: 50%; left: 68%; width: 30%; height: 44%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%); border-radius: 0.8rem; opacity: 0; transition: opacity 0.3s; pointer-events: none;">
+            <span style="font-size: 1.5rem; margin-bottom: 0.25rem;">📱</span>
+            <span style="color: var(--bear-gold); font-weight: 700; font-size: 0.9rem;">Editor Bear</span>
+            <span style="color: white; font-size: 0.75rem; opacity: 0.9;">Honey Break</span>
+        </div>
     </div>
     
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center;">
-        <div style="padding: 1rem; background: var(--bg-elevated); border-radius: 1rem; border: 1px solid var(--border);">
-            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎙️</div>
-            <h4 style="color: var(--bear-gold); margin-bottom: 0.25rem;">Anchor Bear</h4>
-            <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">Editor-in-Chief</p>
-        </div>
-        
-        <div style="padding: 1rem; background: var(--bg-elevated); border-radius: 1rem; border: 1px solid var(--border);">
-            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📸</div>
-            <h4 style="color: var(--bear-gold); margin-bottom: 0.25rem;">Field Reporter</h4>
-            <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">On the Scene</p>
-        </div>
-        
-        <div style="padding: 1rem; background: var(--bg-elevated); border-radius: 1rem; border: 1px solid var(--border);">
-            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎛️</div>
-            <h4 style="color: var(--bear-gold); margin-bottom: 0.25rem;">Tech Director</h4>
-            <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">Breaking News</p>
-        </div>
-        
-        <div style="padding: 1rem; background: var(--bg-elevated); border-radius: 1rem; border: 1px solid var(--border);">
-            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎥</div>
-            <h4 style="color: var(--bear-gold); margin-bottom: 0.25rem;">Camera Bear</h4>
-            <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">Visual Storytelling</p>
-        </div>
-        
-        <div style="padding: 1rem; background: var(--bg-elevated); border-radius: 1rem; border: 1px solid var(--border);">
-            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">☕</div>
-            <h4 style="color: var(--bear-gold); margin-bottom: 0.25rem;">Intern Cub</h4>
-            <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">Always Running</p>
-        </div>
-        
-        <div style="padding: 1rem; background: var(--bg-elevated); border-radius: 1rem; border: 1px solid var(--border);">
-            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📱</div>
-            <h4 style="color: var(--bear-gold); margin-bottom: 0.25rem;">Editor Bear</h4>
-            <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">Honey Break</p>
-        </div>
-    </div>
+    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1.5rem;">
+        💡 Hover over the portraits to see who's who!
+    </p>
 </div>
 
 <!-- Recent Articles -->
@@ -257,20 +266,20 @@
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
         <div style="text-align: center;">
             <div style="font-size: 2.5rem; margin-bottom: 1rem;">📰</div>
-            <h3 style="margin-bottom: 0.5rem;">Daily Curated</h3>
+            <h3 style="margin-bottom: 0.5rem;">Beary Curated</h3>
             <p style="color: var(--text-secondary); font-size: 0.95rem;">One hand-picked AI story per day. No fluff, just the good stuff.</p>
         </div>
         
         <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔥</div>
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🍯</div>
             <h3 style="margin-bottom: 0.5rem;">Honey-Sweet Takes</h3>
             <p style="color: var(--text-secondary); font-size: 0.95rem;">Our signature analysis — honest, unfiltered, and experienced.</p>
         </div>
         
         <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
-            <h3 style="margin-bottom: 0.5rem;">Signal Only</h3>
-            <p style="color: var(--text-secondary); font-size: 0.95rem;">No clickbait. No PR fluff. Just what matters.</p>
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌲</div>
+            <h3 style="margin-bottom: 0.5rem;">Wilderness Tested</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">20 years in tech trenches. We know what's signal and what's noise.</p>
         </div>
     </div>
 </section>
