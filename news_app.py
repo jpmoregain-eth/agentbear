@@ -19,8 +19,8 @@ db = NewsDatabase()
 def inject_globals():
     """Inject global template variables"""
     return {
-        'site_name': 'AgentBear News',
-        'site_tagline': 'Daily AI Intelligence with Hot Takes',
+        'site_name': 'AgentBear Corps',
+        'site_tagline': 'A Beary Cute News Agency Reporting on AI',
         'current_year': datetime.now().year,
         'categories': db.get_categories()
     }

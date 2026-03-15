@@ -1,12 +1,27 @@
 {% extends "news_base.html" %}
 
 {% block content %}
+<!-- Agency Banner -->
+<div class="agency-banner">
+    <div class="agency-bears">
+        <span style="--i:0;">🐻</span>
+        <span style="--i:1;">🐻</span>
+        <span style="--i:2;">🐻</span>
+        <span style="--i:3;">🐻</span>
+        <span style="--i:4;">🐻</span>
+    </div>
+    <div class="agency-text">
+        <h2>🍯 Welcome to the Corps</h2>
+        <p>Our team of beary dedicated journalists scours the AI wilderness daily to bring you signal, not noise.</p>
+    </div>
+</div>
+
 <!-- Featured Article -->
 {% if featured %}
 <section class="hero" onclick="window.location.href='/article/{{ featured.slug }}'" style="cursor: pointer;">
     <span class="featured-badge">
-        <span>🔥</span>
-        <span>Today's Featured</span>
+        <span>🐻</span>
+        <span>Today's Lead Story</span>
     </span>
     
     <h1 class="hero-title">{{ featured.title }}</h1>
@@ -26,8 +41,8 @@
 <!-- Recent Articles -->
 <section>
     <div class="section-header">
-        <h2 class="section-title">Recent Intelligence</h2>
-        <a href="/archive" style="color: var(--primary); font-weight: 600;">View All →</a>
+        <h2 class="section-title">Latest from the Field</h2>
+        <a href="/archive" style="color: var(--bear-gold); font-weight: 600;">Full Archives →</a>
     </div>
     
     <div class="article-grid">
@@ -52,7 +67,7 @@
 <!-- Categories -->
 <section>
     <div class="section-header">
-        <h2 class="section-title">Browse by Category</h2>
+        <h2 class="section-title">Our Bureaus</h2>
     </div>
     
     <div class="category-grid">
@@ -68,23 +83,25 @@
 <!-- Newsletter CTA -->
 <section style="margin-top: 4rem;">
     <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 1.5rem; padding: 3rem; text-align: center; position: relative; overflow: hidden;">
-        <div style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%); pointer-events: none;"></div>
+        <div style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; background: radial-gradient(circle, rgba(218,165,32,0.1) 0%, transparent 70%); pointer-events: none;"></div>
         
-        <h2 style="font-size: 2rem; margin-bottom: 1rem; position: relative; z-index: 1;">Get Daily AI Intelligence</h2>
+        <div style="font-size: 4rem; margin-bottom: 1rem;">🐻📰</div>
+        
+        <h2 style="font-size: 2rem; margin-bottom: 1rem; position: relative; z-index: 1;">Join the AgentBear Corps</h2>
         
         <p style="color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; position: relative; z-index: 1;">
-            One curated AI article per day, with our signature hot takes. No fluff, no spam, just signal.
+            Get our daily dispatch from the AI wilderness. One curated story, straight to your inbox, with our signature honey-sweet analysis.
         </p>
         
         <div style="display: flex; gap: 0.75rem; justify-content: center; max-width: 500px; margin: 0 auto; position: relative; z-index: 1; flex-wrap: wrap;">
-            <input type="email" placeholder="your@email.com" style="flex: 1; min-width: 250px; padding: 0.875rem 1.25rem; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 0.75rem; color: var(--text-primary); font-size: 1rem;">
+            <input type="email" placeholder="reporter@yourdomain.com" style="flex: 1; min-width: 250px; padding: 0.875rem 1.25rem; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 0.75rem; color: var(--text-primary); font-size: 1rem;">
             
-            <button style="padding: 0.875rem 1.75rem; background: var(--gradient-primary); color: white; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem; white-space: nowrap;">
-                Subscribe
+            <button style="padding: 0.875rem 1.75rem; background: var(--gradient-bear); color: white; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; font-size: 1rem; white-space: nowrap;">
+                Join the Corps
             </button>
         </div>
         
-        <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem; position: relative; z-index: 1;">Join 2,000+ readers. Unsubscribe anytime.</p>
+        <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 1rem; position: relative; z-index: 1;">🍯 Join 2,000+ readers. No spam, just honey.</p>
     </div>
 </section>
 
@@ -92,21 +109,21 @@
 <section style="margin-top: 4rem;">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
         <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">📰</div>
-            <h3 style="margin-bottom: 0.5rem;">Daily Curated</h3>
-            <p style="color: var(--text-secondary); font-size: 0.95rem;">One hand-picked AI story per day, cutting through the noise.</p>
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🐻‍❄️</div>
+            <h3 style="margin-bottom: 0.5rem;">Beary Curated</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">One hand-picked AI story per day. No fluff, just the good stuff.</p>
         </div>
         
         <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔥</div>
-            <h3 style="margin-bottom: 0.5rem;">Hot Takes</h3>
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🍯</div>
+            <h3 style="margin-bottom: 0.5rem;">Honey-Sweet Takes</h3>
             <p style="color: var(--text-secondary); font-size: 0.95rem;">Our signature analysis — honest, unfiltered, and experienced.</p>
         </div>
         
         <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
-            <h3 style="margin-bottom: 0.5rem;">Signal Only</h3>
-            <p style="color: var(--text-secondary); font-size: 0.95rem;">No clickbait. No PR fluff. Just what matters.</p>
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌲</div>
+            <h3 style="margin-bottom: 0.5rem;">Wilderness Tested</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">20 years in tech trenches. We know what's signal and what's noise.</p>
         </div>
     </div>
 </section>

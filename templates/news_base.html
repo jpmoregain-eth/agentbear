@@ -14,13 +14,15 @@
             --primary-dark: #4f46e5;
             --accent: #ec4899;
             --accent-orange: #f59e0b;
+            --bear-brown: #8B4513;
+            --bear-gold: #DAA520;
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
             --border: rgba(255,255,255,0.08);
             --border-hover: rgba(255,255,255,0.15);
-            --success: #22c55e;
             --gradient-primary: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            --gradient-bear: linear-gradient(135deg, #8B4513 0%, #DAA520 100%);
             --gradient-dark: linear-gradient(180deg, rgba(99,102,241,0.1) 0%, transparent 100%);
         }
         
@@ -70,10 +72,28 @@
             text-decoration: none;
         }
         
+        .logo-bear {
+            font-size: 2.5rem;
+            animation: bearWave 2s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        @keyframes bearWave {
+            0%, 100% { transform: rotate(0deg); }
+            10% { transform: rotate(-10deg); }
+            20% { transform: rotate(10deg); }
+            30% { transform: rotate(0deg); }
+        }
+        
+        .logo-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
         .logo-text {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            background: var(--gradient-primary);
+            background: var(--gradient-bear);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
@@ -82,8 +102,7 @@
         .logo-tagline {
             font-size: 0.7rem;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-style: italic;
         }
         
         .nav-links {
@@ -107,7 +126,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--gradient-primary);
+            background: var(--gradient-bear);
             transition: width 0.3s;
         }
         
@@ -121,7 +140,7 @@
         }
         
         .nav-cta {
-            background: var(--gradient-primary);
+            background: var(--gradient-bear);
             color: white !important;
             padding: 0.6rem 1.2rem;
             border-radius: 2rem;
@@ -136,6 +155,45 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
+        }
+        
+        /* Agency Banner */
+        .agency-banner {
+            background: var(--gradient-dark);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .agency-bears {
+            font-size: 3rem;
+            display: flex;
+            gap: -0.5rem;
+        }
+        
+        .agency-bears span {
+            animation: bearPop 1s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.2s);
+        }
+        
+        @keyframes bearPop {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .agency-text h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+            color: var(--bear-gold);
+        }
+        
+        .agency-text p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
         
         /* Hero */
@@ -156,7 +214,7 @@
             right: 0;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(139,69,19,0.15) 0%, transparent 70%);
             pointer-events: none;
         }
         
@@ -164,7 +222,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: var(--gradient-primary);
+            background: var(--gradient-bear);
             color: white;
             padding: 0.6rem 1.2rem;
             border-radius: 2rem;
@@ -199,6 +257,16 @@
             align-items: center;
         }
         
+        .reporter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-elevated);
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+        }
+        
         .category-badge {
             display: inline-block;
             padding: 0.4rem 1rem;
@@ -228,11 +296,8 @@
         }
         
         .section-title::before {
-            content: '';
-            width: 4px;
-            height: 24px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
+            content: '🐻';
+            font-size: 1.25rem;
         }
         
         /* Article Grid */
@@ -260,7 +325,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--gradient-primary);
+            background: var(--gradient-bear);
             transform: scaleX(0);
             transition: transform 0.3s;
             border-radius: 1rem 1rem 0 0;
@@ -326,7 +391,7 @@
         
         .category-card:hover {
             transform: translateY(-2px);
-            border-color: var(--primary);
+            border-color: var(--bear-gold);
             text-decoration: none;
         }
         
@@ -403,6 +468,11 @@
             font-size: 0.85rem;
         }
         
+        .footer-bears {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
         /* Article Page */
         .article-header {
             max-width: 800px;
@@ -469,7 +539,7 @@
         }
         
         .article-content blockquote {
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid var(--bear-gold);
             padding: 1.5rem 1.5rem 1.5rem 2rem;
             margin: 2.5rem 0;
             background: var(--bg-card);
@@ -478,9 +548,37 @@
             color: var(--text-primary);
         }
         
+        /* Reporter Card */
+        .reporter-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .reporter-avatar {
+            font-size: 4rem;
+            line-height: 1;
+        }
+        
+        .reporter-info h4 {
+            color: var(--bear-gold);
+            margin-bottom: 0.25rem;
+        }
+        
+        .reporter-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
         /* Hot Take Box */
         .hot-take {
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(139, 69, 19, 0.08) 100%);
             border: 1px solid rgba(236, 72, 153, 0.3);
             border-radius: 1rem;
             padding: 2rem;
@@ -518,7 +616,7 @@
             left: 0;
             width: 0%;
             height: 3px;
-            background: var(--gradient-primary);
+            background: var(--gradient-bear);
             z-index: 1000;
             transition: width 0.1s;
         }
@@ -563,7 +661,6 @@
         
         .share-twitter { background: #1da1f2; }
         .share-linkedin { background: #0077b5; }
-        .share-facebook { background: #4267B2; }
         
         /* Responsive */
         @media (max-width: 768px) {
@@ -576,6 +673,8 @@
             .article-grid { grid-template-columns: 1fr; }
             .footer-content { grid-template-columns: 1fr; gap: 2rem; }
             .article-content { font-size: 1.05rem; }
+            .agency-banner { flex-direction: column; text-align: center; }
+            .reporter-card { flex-direction: column; text-align: center; }
         }
     </style>
     {% block extra_css %}{% endblock %}
@@ -586,19 +685,19 @@
     <header class="header">
         <div class="nav-container">
             <a href="/" class="logo">
-                <span style="font-size: 2rem;">🐻</span>
-                <div>
-                    <div class="logo-text">AgentBear</div>
-                    <div class="logo-tagline">News</div>
+                <span class="logo-bear">🐻</span>
+                <div class="logo-text-group">
+                    <div class="logo-text">AgentBear Corps</div>
+                    <div class="logo-tagline">A Beary Cute News Agency 🍯</div>
                 </div>
             </a>
             
             <nav>
                 <ul class="nav-links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/archive">Archive</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/subscribe" class="nav-cta">Subscribe</a></li>
+                    <li><a href="/">News Desk</a></li>
+                    <li><a href="/archive">Archives</a></li>
+                    <li><a href="/about">Our Den</a></li>
+                    <li><a href="/subscribe" class="nav-cta">Join the Corps</a></li>
                 </ul>
             </nav>
         </div>
@@ -611,40 +710,45 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <div class="logo-text">🐻 AgentBear News</div>
-                <p>Daily AI intelligence with hot takes. One curated article per day, cutting through the noise to deliver what actually matters.</p>
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span style="font-size: 2rem;">🐻</span>
+                    <span class="logo-text">AgentBear Corps</span>
+                </div>
+                <p>A beary cute agency of journalists reporting on AI developments. We dig through the noise so you don't have to. 🍯</p>
             </div>
             
             <div class="footer-links">
                 <h4>Navigate</h4>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/archive">Archive</a></li>
-                    <li><a href="/about">About</a></li>
+                    <li><a href="/">News Desk</a></li>
+                    <li><a href="/archive">Archives</a></li>
+                    <li><a href="/about">Our Den</a></li>
                 </ul>
             </div>
             
             <div class="footer-links">
-                <h4>Categories</h4>
+                <h4>Bureaus</h4>
                 <ul>
                     <li><a href="/category/industry">Industry</a></li>
                     <li><a href="/category/agents">Agents</a></li>
                     <li><a href="/category/infra">Infrastructure</a></li>
+                    <li><a href="/category/research">Research</a></li>
                 </ul>
             </div>
             
             <div class="footer-links">
-                <h4>Connect</h4>
+                <h4>Contact</h4>
                 <ul>
-                    <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+                    <li><a href="https://twitter.com" target="_blank">Twitter/X</a></li>
                     <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
-                    <li><a href="mailto:hello@agentbear.news">Email</a></li>
+                    <li><a href="mailto:news@agentbear.corps">Email Us</a></li>
                 </ul>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <p>© {{ current_year }} AgentBear News. Built with 🐻 and caffeine.</p>
+            <div class="footer-bears">🐻 🐻 🐻 🐻 🐻</div>
+            <p>© {{ current_year }} AgentBear Corps. Reporting from the AI wilderness. 🍯</p>
         </div>
     </footer>
     
