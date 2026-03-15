@@ -1,0 +1,77 @@
+{% extends "news_base.html" %}
+
+{% block content %}
+<!-- Featured Article -->
+{% if featured %}
+<section class="hero" onclick="window.location.href='/article/{{ featured.slug }}'" style="cursor: pointer;">
+    <span class="featured-badge">🔥 Today's Featured</span>
+    <h1 class="hero-title">{{ featured.title }}</h1>
+    <p class="hero-subtitle">{{ featured.subtitle or featured.summary }}</p>
+    <div class="hero-meta">
+        <span class="category-badge" style="background: {{ featured.category_color or '#6366f1' }}20; color: {{ featured.category_color or '#6366f1' }};">
+            {{ featured.category | title }}
+        </span>
+        <span>{{ featured.published_at[:10] }}</span>
+        <span>{{ featured.views }} views</span>
+    </div>
+</section>
+{% endif %}
+
+<!-- Recent Articles -->
+<section>
+    <div class="section-header">
+        <h2 class="section-title">Recent Intelligence</h2>
+        <a href="/archive" style="color: var(--primary);">View All →</a>
+    </div>
+    
+    <div class="article-grid">
+        {% for article in recent %}
+        <article class="article-card" onclick="window.location.href='/article/{{ article.slug }}'">
+            <span class="category-badge" style="background: {{ article.category_color or '#6366f1' }}20; color: {{ article.category_color or '#6366f1' }};">
+                {{ article.category | title }}
+            </span>
+            <h3 class="article-card-title">{{ article.title }}</h3>
+            <p class="article-card-summary">{{ article.summary or article.content[:150] }}...</p>
+            <div class="article-card-meta">
+                <span>{{ article.published_at[:10] }}</span>
+                <span>{{ article.views }} views</span>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Categories -->
+<section>
+    <h2 class="section-title" style="margin-bottom: 1.5rem;">Browse by Category</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        {% for category in categories %}
+        <a href="/category/{{ category.slug }}" style="text-decoration: none;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; transition: all 0.3s;" 
+                 onmouseover="this.style.borderColor='{{ category.color }}'" 
+                 onmouseout="this.style.borderColor='var(--border)'">
+                <h3 style="color: {{ category.color }}; margin-bottom: 0.5rem;">{{ category.name }}</h3>
+                <p style="color: var(--text-secondary); font-size: 0.875rem;">{{ category.description }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Newsletter CTA -->
+<section style="margin-top: 4rem;">
+    <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%); border: 1px solid var(--border); border-radius: 1rem; padding: 3rem; text-align: center;">
+        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Get Daily AI Intelligence</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+            One curated AI article per day, with our hot takes and analysis. No fluff, no spam.
+        </p>
+        <div style="display: flex; gap: 0.5rem; justify-content: center; max-width: 500px; margin: 0 auto;">
+            <input type="email" placeholder="your@email.com" style="flex: 1; padding: 0.75rem 1rem; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--text-primary);">
+            <button style="padding: 0.75rem 1.5rem; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer;">
+                Subscribe
+            </button>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 1rem;">Coming soon. Join the waitlist.</p>
+    </div>
+</section>
+{% endblock %}
