@@ -81,14 +81,17 @@ def inject_globals():
 
 @app.route('/')
 def index():
-    featured = get_featured_article()
-    all_articles = get_articles(limit=10)
+    # Get all articles sorted by date (newest first)
+    all_articles = get_articles(limit=20)
     
-    # Fresh from the Honeypot - 3 most recent (excluding featured)
-    fresh = [a for a in all_articles if not featured or a['slug'] != featured['slug']][:3]
+    # Fresh from the Honeypot: 3 most recent
+    fresh = all_articles[:3]
     
-    # Latest from the Field - 4 most recent (excluding featured)
-    latest = [a for a in all_articles if not featured or a['slug'] != featured['slug']][:4]
+    # Latest from the Field: next 4 most recent (4th, 5th, 6th, 7th)
+    latest = all_articles[3:7]
+    
+    # Featured is just the first one for highlighting
+    featured = fresh[0] if fresh else None
     
     return render_template('news_index.html', featured=featured, fresh=fresh, latest=latest)
 

@@ -138,39 +138,23 @@
     </div>
 </div>
 
-<!-- Featured Article: Fresh from the Honeypot -->
-{% if featured %}
+<!-- Fresh from the Honeypot: 3 most recent -->
 <section>
     <div class="section-header">
         <h2 class="section-title">🍯 Fresh from the Honeypot</h2>
     </div>
     
-    <article class="article-card" onclick="window.location.href='/article/{{ featured.slug }}'" style="cursor: pointer; border: 2px solid var(--bear-gold);">
-        <span class="category-badge" style="background: {{ featured.category_color or '#6366f1' }}20; color: {{ featured.category_color or '#6366f1' }};">
-            {{ featured.category | title }}
-        </span>
-        
-        <h3 class="article-card-title" style="font-size: 1.5rem;">{{ featured.title }}</h3>
-        
-        <p class="article-card-summary">{{ featured.subtitle or featured.summary }}</p>
-        
-        <div class="article-card-meta">
-            <span>{{ featured.published_at[:10] }}</span>
-        </div>
-    </article>
-    
-    <!-- 3 Fresh Articles below featured -->
     {% if fresh %}
-    <div class="article-grid" style="margin-top: 1.5rem;">
+    <div class="article-grid">
         {% for article in fresh %}
-        <article class="article-card" onclick="window.location.href='/article/{{ article.slug }}'">
+        <article class="article-card" onclick="window.location.href='/article/{{ article.slug }}'" {% if loop.first %}style="border: 2px solid var(--bear-gold);"{% endif %}>
             <span class="category-badge" style="background: {{ article.category_color or '#6366f1' }}20; color: {{ article.category_color or '#6366f1' }};">
                 {{ article.category | title }}
             </span>
             
-            <h3 class="article-card-title">{{ article.title }}</h3>
+            <h3 class="article-card-title" {% if loop.first %}style="font-size: 1.5rem;"{% endif %}>{{ article.title }}</h3>
             
-            <p class="article-card-summary">{{ article.summary or article.content[:150] }}...</p>
+            <p class="article-card-summary">{{ article.subtitle or article.summary or article.content[:200] }}...</p>
             
             <div class="article-card-meta">
                 <span>{{ article.published_at[:10] }}</span>
@@ -180,7 +164,6 @@
     </div>
     {% endif %}
 </section>
-{% endif %}
 
 <!-- Meet the Team -->
 <div class="meet-team">
