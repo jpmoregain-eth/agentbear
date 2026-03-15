@@ -32,8 +32,6 @@
             {{ featured.category | title }}
         </span>
         <span>{{ featured.published_at[:10] }}</span>
-        <span>•</span>
-        <span>{{ featured.views }} views</span>
     </div>
 </section>
 {% endif %}
@@ -57,7 +55,6 @@
             
             <div class="article-card-meta">
                 <span>{{ article.published_at[:10] }}</span>
-                <span>{{ article.views }} views</span>
             </div>
         </article>
         {% endfor %}

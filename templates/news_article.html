@@ -17,8 +17,6 @@
     
     <div class="hero-meta" style="justify-content: center;">
         <span>{{ article.published_at[:10] }}</span>
-        <span>•</span>
-        <span>{{ article.views }} views</span>
         {% if article.source_name %}
         <span>•</span>
         <span>Source: <a href="{{ article.source_url }}" target="_blank" rel="noopener" style="color: var(--text-muted);">{{ article.source_name }}</a></span>
