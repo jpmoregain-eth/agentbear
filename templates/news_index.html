@@ -1,45 +1,215 @@
 {% extends "news_base.html" %}
 
+{% block extra_css %}
+<style>
+.hero-bears {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background: url('/static/images/hero-bears.jpg') center/cover no-repeat;
+    border-radius: 1.5rem;
+    margin-bottom: 3rem;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.hero-bears::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 15, 0.3) 0%,
+        rgba(10, 10, 15, 0.6) 50%,
+        rgba(10, 10, 15, 0.95) 100%
+    );
+}
+
+.hero-bears-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    max-width: 800px;
+}
+
+.hero-bears-content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    background: linear-gradient(135deg, #fff 0%, #DAA520 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-bears-content p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(218, 165, 32, 0.2);
+    border: 1px solid var(--bear-gold);
+    color: var(--bear-gold);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.meet-team {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.meet-team h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--bear-gold);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-member-emoji {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.team-member h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.team-member p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .hero-bears {
+        height: 400px;
+    }
+    .hero-bears-content h1 {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<!-- Agency Banner -->
-<div class="agency-banner">
-    <div class="agency-bears">
-        <span style="--i:0; filter: hue-rotate(0deg) saturate(1.5);">🐻</span>
-        <span style="--i:1; filter: hue-rotate(60deg) saturate(1.5);">🐻</span>
-        <span style="--i:2; filter: hue-rotate(120deg) saturate(1.5);">🐻</span>
-        <span style="--i:3; filter: hue-rotate(240deg) saturate(1.5);">🐻</span>
-        <span style="--i:4; filter: hue-rotate(300deg) saturate(1.5);">🐻</span>
-    </div>
-    <div class="agency-text">
-        <h2>🍯 Welcome to the Corps</h2>
-        <p>Our team of beary dedicated journalists scours the AI wilderness daily to bring you signal, not noise.</p>
+<!-- Epic Hero Section -->
+<div class="hero-bears">
+    <div class="hero-bears-content">
+        <span class="hero-badge">
+            <span>🐻</span>
+            <span>AgentBear Corps Newsroom</span>
+        </span>
+        
+        <h1>Reporting from the<br>AI Wilderness</h1>
+        
+        <p>Our team of beary dedicated journalists scours the AI wilderness daily to bring you signal, not noise. 🍯</p>
     </div>
 </div>
 
 <!-- Featured Article -->
 {% if featured %}
-<section class="hero" onclick="window.location.href='/article/{{ featured.slug }}'" style="cursor: pointer;">
-    <span class="featured-badge">
-        <span>🐻</span>
-        <span>Today's Lead Story</span>
-    </span>
+<section>
+    <div class="section-header">
+        <h2 class="section-title">🔥 Today's Lead Story</h2>
+    </div>
     
-    <h1 class="hero-title">{{ featured.title }}</h1>
-    <p class="hero-subtitle">{{ featured.subtitle or featured.summary }}</p>
-    
-    <div class="hero-meta">
+    <article class="article-card" onclick="window.location.href='/article/{{ featured.slug }}'" style="cursor: pointer; border: 2px solid var(--bear-gold);">
         <span class="category-badge" style="background: {{ featured.category_color or '#6366f1' }}20; color: {{ featured.category_color or '#6366f1' }};">
             {{ featured.category | title }}
         </span>
-        <span>{{ featured.published_at[:10] }}</span>
-    </div>
+        
+        <h3 class="article-card-title" style="font-size: 1.5rem;">{{ featured.title }}</h3>
+        
+        <p class="article-card-summary">{{ featured.subtitle or featured.summary }}</p>
+        
+        <div class="article-card-meta">
+            <span>{{ featured.published_at[:10] }}</span>
+        </div>
+    </article>
 </section>
 {% endif %}
+
+<!-- Meet the Team -->
+<div class="meet-team">
+    <h2>🐻 Meet the Newsroom</h2>
+    
+    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+        From our rooftop newsroom overlooking the city, these beary dedicated journalists bring you the latest in AI developments.
+    </p>
+    
+    <div class="team-grid">
+        <div class="team-member">
+            <div class="team-member-emoji">🐻</div>
+            <h4>Anchor Bear</h4>
+            <p>Editor-in-Chief</p>
+        </div>
+        
+        <div class="team-member">
+            <div class="team-member-emoji">🐻‍❄️</div>
+            <h4>Field Reporter</h4>
+            <p>On the Scene</p>
+        </div>
+        
+        <div class="team-member">
+            <div class="team-member-emoji">🐻</div>
+            <h4>Tech Director</h4>
+            <p>Breaking News</p>
+        </div>
+        
+        <div class="team-member">
+            <div class="team-member-emoji">🐻</div>
+            <h4>Camera Bear</h4>
+            <p>Visual Storytelling</p>
+        </div>
+        
+        <div class="team-member">
+            <div class="team-member-emoji">🐻</div>
+            <h4>Intern Cub</h4>
+            <p>Always Running</p>
+        </div>
+        
+        <div class="team-member">
+            <div class="team-member-emoji">☕</div>
+            <h4>Editor Bear</h4>
+            <p>Honey Break</p>
+        </div>
+    </div>
+</div>
 
 <!-- Recent Articles -->
 <section>
     <div class="section-header">
-        <h2 class="section-title">Latest from the Field</h2>
+        <h2 class="section-title">📰 Latest from the Field</h2>
         <a href="/archive" style="color: var(--bear-gold); font-weight: 600;">Full Archives →</a>
     </div>
     
@@ -51,6 +221,7 @@
             </span>
             
             <h3 class="article-card-title">{{ article.title }}</h3>
+            
             <p class="article-card-summary">{{ article.summary or article.content[:200] }}...</p>
             
             <div class="article-card-meta">
@@ -64,7 +235,7 @@
 <!-- Categories -->
 <section>
     <div class="section-header">
-        <h2 class="section-title">Our Bureaus</h2>
+        <h2 class="section-title">🏢 Our Bureaus</h2>
     </div>
     
     <div class="category-grid">
@@ -77,27 +248,25 @@
     </div>
 </section>
 
-
-
 <!-- About Snippet -->
 <section style="margin-top: 4rem;">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
         <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🐻‍❄️</div>
-            <h3 style="margin-bottom: 0.5rem;">Beary Curated</h3>
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">📰</div>
+            <h3 style="margin-bottom: 0.5rem;">Daily Curated</h3>
             <p style="color: var(--text-secondary); font-size: 0.95rem;">One hand-picked AI story per day. No fluff, just the good stuff.</p>
         </div>
         
         <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🍯</div>
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔥</div>
             <h3 style="margin-bottom: 0.5rem;">Honey-Sweet Takes</h3>
             <p style="color: var(--text-secondary); font-size: 0.95rem;">Our signature analysis — honest, unfiltered, and experienced.</p>
         </div>
         
         <div style="text-align: center;">
-            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌲</div>
-            <h3 style="margin-bottom: 0.5rem;">Wilderness Tested</h3>
-            <p style="color: var(--text-secondary); font-size: 0.95rem;">20 years in tech trenches. We know what's signal and what's noise.</p>
+            <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
+            <h3 style="margin-bottom: 0.5rem;">Signal Only</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">No clickbait. No PR fluff. Just what matters.</p>
         </div>
     </div>
 </section>
