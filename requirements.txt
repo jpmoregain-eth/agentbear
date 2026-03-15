@@ -1,3 +1,2 @@
 # AgentBear Corps - News Site Dependencies
 flask>=2.3.0
-pyyaml>=6.0
