@@ -1,0 +1,337 @@
+{% extends "news_base.html" %}
+
+{% block title %}🍯 Secret Den Discovered! | {{ site_name }}{% endblock %}
+
+{% block extra_css %}
+<style>
+.secret-den {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, rgba(139,69,19,0.2) 0%, rgba(218,165,32,0.2) 100%);
+    border: 2px dashed var(--bear-gold);
+    border-radius: 2rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.secret-den::before {
+    content: '🐻';
+    position: absolute;
+    font-size: 20rem;
+    opacity: 0.05;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.secret-badge {
+    background: var(--bear-gold);
+    color: var(--bg-dark);
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.secret-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: var(--gradient-bear);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.secret-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.honey-pot {
+    font-size: 8rem;
+    margin: 2rem 0;
+    animation: wiggle 3s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+.perks-list {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    max-width: 500px;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.perks-list h3 {
+    color: var(--bear-gold);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.perks-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.perks-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.perks-list li:last-child {
+    border-bottom: none;
+}
+
+.perks-list li span {
+    font-size: 1.25rem;
+}
+
+.application-form {
+    background: var(--bg-elevated);
+    border: 2px solid var(--bear-gold);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.application-form h3 {
+    color: var(--bear-gold);
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--bear-gold);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--gradient-bear);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: transform 0.2s;
+}
+
+.submit-btn:hover {
+    transform: scale(1.02);
+}
+
+.prank-reveal {
+    display: none;
+    background: var(--bg-card);
+    border: 2px dashed var(--accent);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    max-width: 500px;
+    margin-top: 2rem;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.prank-reveal h2 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.back-link {
+    margin-top: 3rem;
+    color: var(--text-muted);
+}
+
+.back-link a {
+    color: var(--bear-gold);
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .secret-title {
+        font-size: 2rem;
+    }
+    .honey-pot {
+        font-size: 5rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="secret-den">
+    <span class="secret-badge">🎉 Easter Egg Found!</span>
+    
+    <h1 class="secret-title">You've Discovered<br>the Secret Den! 🐻</h1>
+    
+    <p class="secret-subtitle">
+        Welcome, brave human. You've found where the magic (and honey) happens.
+    </p>
+    
+    <div class="honey-pot">🍯</div>
+    
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Join the Bear Corps! 🐻</h2>
+    
+    <p style="color: var(--text-secondary); max-width: 500px; margin-bottom: 2rem;">
+        We're always looking for hungry... er, we mean <em>ambitious</em> individuals 
+        to join our newsroom. Check out these beary amazing perks:
+    </p>
+    
+    <div class="perks-list">
+        <h3>🍯 Employee Benefits</h3>
+        <ul>
+            <li><span>🍯</span> Unlimited honey from the break room</li>
+            <li><span>🐟</span> Fresh salmon Fridays</li>
+            <li><span>🛏️</span> Hibernation leave (6 months/year)</li>
+            <li><span>🌳</span> Treehouse office with scenic views</li>
+            <li><span>🐝</span> Beekeeping workshops (BYO protective suit)</li>
+            <li><span>💤</span> Napping pods in every corner</li>
+            <li><span>🎣</span> Company fishing trips to Alaska</li>
+            <li><span>🧺</span> Free picnic basket inspections</li>
+        </ul>
+    </div>
+    
+    <div class="application-form">
+        <h3>📝 Submit Your Application</h3>
+        
+        <form onsubmit="event.preventDefault(); document.querySelector('.prank-reveal').style.display = 'block'; this.style.display = 'none';">
+            
+            <div class="form-group">
+                <label>Your Name (Human Name Acceptable) 🧑</label>
+                <input type="text" placeholder="e.g., John Doe" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Preferred Nickname (Bear Names Encouraged) 🐻</label>
+                <input type="text" placeholder="e.g., Honey Paws, Salmon Slayer">
+            </div>
+            
+            <div class="form-group">
+                <label>Honey Preference 🍯</label>
+                <select required>
+                    <option value="">Select your favorite...</option>
+                    <option value="clover">Clover Honey</option>
+                    <option value="manuka">Manuka (Fancy Bear)</option>
+                    <option value="wildflower">Wildflower</option>
+                    <option value="all">ALL OF THE ABOVE 🍯🍯🍯</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Why do you want to join our den? 📝</label>
+                <textarea rows="3" placeholder="I love honey, I can hibernate on demand, and I'm great at catching salmon..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Can you roar? 🦁</label>
+                <select required>
+                    <option value="">Select honestly...</option>
+                    <option value="loud">Loud and Proud!</option>
+                    <option value="quiet">Quiet Growl</option>
+                    <option value="squeak">More of a Squeak tbh</option>
+                    <option value="human">I'm actually human, is that ok?</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                🐻 Submit Application 🍯
+            </button>
+        </form>
+    </div>
+    
+    <div class="prank-reveal">
+        <h2>😂 APRIL FOOLS! (Any Month Edition)</h2>
+        
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+            🐻 <strong>Psst!</strong> You didn't really think we were hiring humans, did you? 
+            This den is strictly <strong>bears only</strong>! 🐻
+        </p>
+        
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 1rem;">
+            But hey, thanks for playing along! Your application has been... <em>carefully reviewed</em> 
+            by our Editor-in-Chief (he's napping on it right now). 🍯
+        </p>
+        
+        <div style="font-size: 4rem; margin: 2rem 0;">🐻💤🍯</div>
+        
+        <p style="color: var(--bear-gold); font-weight: 600; font-size: 1.1rem;">
+            🎉 You found the Easter egg! Share this with friends who need a laugh! 🎉
+        </p>
+        
+        <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-dark); border-radius: 0.5rem;">
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">
+                🔗 <strong>Secret URL:</strong> agentbearcorps.com/careers
+            </p>
+        </div>
+    </div>
+    
+    <div class="back-link">
+        <p>
+            👉 <a href="/">Back to News Desk</a> | 
+            🐻 <a href="/about">Visit Our Real Den</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
