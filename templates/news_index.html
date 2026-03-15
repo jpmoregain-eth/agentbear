@@ -138,11 +138,11 @@
     </div>
 </div>
 
-<!-- Featured Article -->
+<!-- Featured Article: Fresh from the Honeypot -->
 {% if featured %}
 <section>
     <div class="section-header">
-        <h2 class="section-title">🔥 Today's Lead Story</h2>
+        <h2 class="section-title">🍯 Fresh from the Honeypot</h2>
     </div>
     
     <article class="article-card" onclick="window.location.href='/article/{{ featured.slug }}'" style="cursor: pointer; border: 2px solid var(--bear-gold);">
@@ -158,6 +158,27 @@
             <span>{{ featured.published_at[:10] }}</span>
         </div>
     </article>
+    
+    <!-- 3 Fresh Articles below featured -->
+    {% if fresh %}
+    <div class="article-grid" style="margin-top: 1.5rem;">
+        {% for article in fresh %}
+        <article class="article-card" onclick="window.location.href='/article/{{ article.slug }}'">
+            <span class="category-badge" style="background: {{ article.category_color or '#6366f1' }}20; color: {{ article.category_color or '#6366f1' }};">
+                {{ article.category | title }}
+            </span>
+            
+            <h3 class="article-card-title">{{ article.title }}</h3>
+            
+            <p class="article-card-summary">{{ article.summary or article.content[:150] }}...</p>
+            
+            <div class="article-card-meta">
+                <span>{{ article.published_at[:10] }}</span>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% endif %}
 </section>
 {% endif %}
 
@@ -242,7 +263,7 @@
     </style>
 </div>
 
-<!-- Recent Articles -->
+<!-- Latest from the Field: 4 articles -->
 <section>
     <div class="section-header">
         <h2 class="section-title">📰 Latest from the Field</h2>
@@ -250,7 +271,7 @@
     </div>
     
     <div class="article-grid">
-        {% for article in recent %}
+        {% for article in latest %}
         <article class="article-card" onclick="window.location.href='/article/{{ article.slug }}'">
             <span class="category-badge" style="background: {{ article.category_color or '#6366f1' }}20; color: {{ article.category_color or '#6366f1' }};">
                 {{ article.category | title }}
